@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile",
+            "command": "make",
+            "args": [
+                "bin/test"
+            ],
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Run",
+            "command": "bin/test",
+            "args": [],
+            "options": {
+                "env": {
+                    "__NV_PRIME_RENDER_OFFLOAD": "1",
+                    "__VK_LAYER_NV_optimus": "NVIDIA_only",
+                    "__GLX_VENDOR_LIBRARY_NAME": "nvidia"
+                }
+            },
+            "problemMatcher": [],
+            "dependsOn": ["Compile"],
+            "group": "test"
+        }
+    ]
+}
