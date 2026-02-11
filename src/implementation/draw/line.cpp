@@ -7,7 +7,7 @@ namespace sgl{
         vao.set_attr<float>(0,0,2,0,false);
         vao.set_attr<float>(1,0,3,2*sizeof(float),false);
     }
-    void LineDrawer::line(cppp::fvec2 start,cppp::fvec3 startc,cppp::fvec2 end,cppp::fvec3 endc){
+    void LineDrawer::line(cppp::fvec2 start,cppp::fvec3 startc,cppp::fvec2 end,cppp::fvec3 endc) const{
         std::array vertices{
             start.x(),start.y(),startc.x(),startc.y(),startc.z(),
             end.x(),end.y(),endc.x(),endc.y(),endc.z()
