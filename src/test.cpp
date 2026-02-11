@@ -234,7 +234,7 @@ int main(){
                             if(!buf.empty()) buf.pop_back();
                             break;
                         case SDLK_RETURN:
-                            cf = {ftlib.load_font_from_fc(buf),sdf?sgl::SdfMode::DIRECT:sgl::SdfMode::NO_SDF};
+                            cf = {buf.starts_with(u8'/')?ftlib.load_font(buf):ftlib.load_font_from_fc(buf),sdf?sgl::SdfMode::DIRECT:sgl::SdfMode::NO_SDF};
                             buf.clear();
                             cf.font().init_width_pt(i<<6uz,191,191);
                             fn = cf.font().get_name();
