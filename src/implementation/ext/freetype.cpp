@@ -97,7 +97,7 @@ namespace sgl{
             throw std::runtime_error("Can't parse font name.");
         }
     }
-    Glyph& CachedFont::query(std::uint32_t gl){
+    Glyph& CachedFont::query(std::uint32_t gl) const{
         if(auto it=gv.find(gl);it!=gv.end()){
             return it->second;
         }

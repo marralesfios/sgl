@@ -125,8 +125,8 @@ namespace sgl{
             Font load_font_from_fc(const cppp::str& name);
     };
     class CachedFont{
-        std::unordered_map<std::uint32_t,Glyph> gv;
-        Font f;
+        mutable std::unordered_map<std::uint32_t,Glyph> gv;
+        mutable Font f;
         SdfMode sdf;
         public:
             CachedFont(Font&& f,SdfMode sm=SdfMode::NO_SDF) : f(std::move(f)), sdf(sm){}
@@ -136,7 +136,7 @@ namespace sgl{
             const Font& font() const{
                 return f;
             }
-            Glyph& query(std::uint32_t gl);
+            Glyph& query(std::uint32_t gl) const;
             std::size_t size() const{
                 return gv.size();
             }
