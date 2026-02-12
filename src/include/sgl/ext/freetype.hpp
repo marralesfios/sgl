@@ -74,6 +74,12 @@ namespace sgl{
         friend class FreeType;
         friend class Shaper;
         Font(FT_Face hand);
+        static float fp6itf(std::int32_t v){
+            return static_cast<float>(v)/64.0f;
+        }
+        static float fp6itf(std::uint32_t v){
+            return static_cast<float>(v)/64.0f;
+        }
         public:
             void init_width_px(std::uint32_t px);
             // pt in fp.6 (i.e. 1/64 units)
@@ -91,13 +97,22 @@ namespace sgl{
             std::uint32_t line_height() const{
                 return static_cast<std::uint32_t>(FT_MulFix(handle->height,handle->size->metrics.y_scale));
             }
+            float line_height_px() const{
+                return fp6itf(line_height());
+            }
             // fp.6 (i.e. 1/64 units)
             std::int32_t ascender() const{
                 return static_cast<std::int32_t>(FT_MulFix(handle->ascender,handle->size->metrics.y_scale));
             }
+            float ascender_px() const{
+                return fp6itf(ascender());
+            }
             // fp.6 (i.e. 1/64 units), usually negative!
             std::int32_t descender() const{
                 return static_cast<std::int32_t>(FT_MulFix(handle->descender,handle->size->metrics.y_scale));
+            }
+            float descender_px() const{
+                return fp6itf(descender());
             }
             std::uint32_t char_to_glyph_id(char32_t cp) const;
             Glyph load_glyph(std::uint32_t gl,SdfMode sdf=SdfMode::NO_SDF);
