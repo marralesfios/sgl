@@ -14,7 +14,7 @@ namespace sgl{
         std::unique_ptr<SDL_Window,s_delete_win> p;
         SDL_GLContext ctx;
         public:
-            Window(const cppp::str& title,std::uint32_t w,std::uint32_t h);
+            Window(const cppp::str& title,std::uint32_t w,std::uint32_t h,std::uint64_t flags=SDL_WINDOW_RESIZABLE);
             void flip(){
                 if(!SDL_GL_SwapWindow(p.get())) detail::error();
             }
