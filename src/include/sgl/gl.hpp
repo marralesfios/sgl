@@ -402,29 +402,29 @@ namespace sgl{
         float pixel_size_y;
         constexpr static cppp::fvec2 NDC_ORIGIN{-1.0f,1.0f};
         public:
-            CoordinateMap(std::uint32_t w,std::uint32_t h)
+            constexpr CoordinateMap(std::uint32_t w,std::uint32_t h)
             : _win_size(w,h), conversion_factor(2.0f/static_cast<float>(w),-2.0f/static_cast<float>(h)),
               pixel_size_y(2.0f/static_cast<float>(h)){}
-            void update(std::uint32_t w,std::uint32_t h){
+            constexpr void update(std::uint32_t w,std::uint32_t h){
                 conversion_factor.x() = 2.0f/static_cast<float>(_win_size.x() = w);
                 conversion_factor.y() = -(pixel_size_y = 2.0f/static_cast<float>(_win_size.y() = h));
             }
-            cppp::uvec2 win_size() const{
+            constexpr cppp::uvec2 win_size() const{
                 return _win_size;
             }
-            cppp::fvec2 cvt_rel(cppp::fvec2 pos) const{
+            constexpr cppp::fvec2 cvt_rel(cppp::fvec2 pos) const{
                 return pos*conversion_factor;
             }
-            cppp::fvec2 cvt_abs(cppp::fvec2 pos) const{
+            constexpr cppp::fvec2 cvt_abs(cppp::fvec2 pos) const{
                 return NDC_ORIGIN + cvt_rel(pos);
             }
-            cppp::fvec2 pixel_size() const{
+            constexpr cppp::fvec2 pixel_size() const{
                 return {conversion_factor.x(),pixel_size_y};
             }
-            cppp::ivec2 from_ndc_rel(cppp::fvec2 ndc) const{
+            constexpr cppp::ivec2 from_ndc_rel(cppp::fvec2 ndc) const{
                 return cppp::ivec2(ndc/conversion_factor);
             }
-            cppp::ivec2 from_ndc_abs(cppp::fvec2 ndc) const{
+            constexpr cppp::ivec2 from_ndc_abs(cppp::fvec2 ndc) const{
                 return from_ndc_rel(ndc-NDC_ORIGIN);
             }
     };
