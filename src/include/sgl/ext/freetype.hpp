@@ -8,6 +8,7 @@
 #include<ft2build.h>
 #include FT_FREETYPE_H
 #include"../gl.hpp"
+#include"../draw/sdf.hpp"
 namespace sgl{
     void init_gl_for_text();
     namespace detail{
@@ -81,6 +82,9 @@ namespace sgl{
             return static_cast<float>(v)/64.0f;
         }
         public:
+            FT_Face native_handle(){
+                return handle;
+            }
             void init_width_px(std::uint32_t px);
             // pt in fp.6 (i.e. 1/64 units)
             void init_width_pt(std::uint32_t pt,std::uint32_t hdpi,std::uint32_t vdpi);
@@ -193,5 +197,15 @@ namespace sgl{
             };
             Shaper() : resource_handle(hb_buffer_create()){}
             iterator shape(cppp::sv str,const Font& f);
+    };
+    
+    class SDFTextRenderer{
+        mutable Shaper sh;
+        SDFRenderer sr;
+        public:
+            Shaper& shaper() const{
+                return sh;
+            }
+            void draw_text(cppp::sv text,cppp::fvec2& pos,float sca,cppp::fvec3 color,const CachedFont& cf,const CoordinateMap& cm) const;
     };
 }

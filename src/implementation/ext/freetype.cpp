@@ -21,7 +21,7 @@ namespace sgl{
         std::uint32_t h = slt->bitmap.rows;
         if(w&&h){
             _bitmap.create();
-            _bitmap.allocate_static(sgl::ImageFormat::R8,w,h);
+            _bitmap.allocate_static(ImageFormat::R8,w,h);
             _bitmap.upload(slt->bitmap.buffer,PixelFormat::R,0,0,w,h);
         }
     }
@@ -108,10 +108,10 @@ namespace sgl{
             ret.bitmap().wrapx(TextureWrapMode::CLAMP_TO_EDGE);
             ret.bitmap().wrapy(TextureWrapMode::CLAMP_TO_EDGE);
             if(sdf==SdfMode::NO_SDF){
-                ret.bitmap().swizzle(sgl::TextureSwizzleTarget::R,sgl::TextureSwizzleSource::ONE);
-                ret.bitmap().swizzle(sgl::TextureSwizzleTarget::G,sgl::TextureSwizzleSource::ONE);
-                ret.bitmap().swizzle(sgl::TextureSwizzleTarget::B,sgl::TextureSwizzleSource::ONE);
-                ret.bitmap().swizzle(sgl::TextureSwizzleTarget::A,sgl::TextureSwizzleSource::R);
+                ret.bitmap().swizzle(TextureSwizzleTarget::R,TextureSwizzleSource::ONE);
+                ret.bitmap().swizzle(TextureSwizzleTarget::G,TextureSwizzleSource::ONE);
+                ret.bitmap().swizzle(TextureSwizzleTarget::B,TextureSwizzleSource::ONE);
+                ret.bitmap().swizzle(TextureSwizzleTarget::A,TextureSwizzleSource::R);
             }
         }
         return ret;
@@ -124,5 +124,18 @@ namespace sgl{
         hb_glyph_info_t* i = hb_buffer_get_glyph_infos(handle,&n);
         hb_glyph_position_t* p = hb_buffer_get_glyph_positions(handle,&n);
         return {handle,i,i+n,p};
+    }
+    
+    static cppp::fvec2 yf(cppp::fvec2 x){
+        return {x.x(),-x.y()};
+    }
+    void SDFTextRenderer::draw_text(cppp::sv text,cppp::fvec2& pos,float sca,cppp::fvec3 color,const CachedFont& cf,const CoordinateMap& cm) const{
+        for(auto it = sh.shape(text,cf.font());it;++it){
+            auto& gl = cf.query(it.glyph());
+            if(gl.bitmap()){
+                sr.draw(gl.bitmap(),cm.cvt_abs(pos+yf(cppp::fvec2(it.bearing()+gl.bearing())*sca)),cm.pixel_size()*sca,color);
+            }
+            pos += cppp::fvec2(it.advance())*sca/64.0f;
+        }
     }
 }
