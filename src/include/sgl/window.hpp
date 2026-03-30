@@ -21,6 +21,9 @@ namespace sgl{
             void start_input(){
                 if(!SDL_StartTextInput(p.get())) detail::error();
             }
+            void stop_input(){
+                if(!SDL_StopTextInput(p.get())) detail::error();
+            }
             void set_fullscreen(bool fs){
                 if(!SDL_SetWindowFullscreen(p.get(),fs)) detail::error();
             }
