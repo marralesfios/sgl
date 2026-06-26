@@ -1,7 +1,7 @@
 #include<cppp/template-string.hpp>
 #include<sgl/ext/freetype.hpp>
 #include<sgl/ext/stbi.hpp>
-#include<cppp/tostring.hpp>
+#include<cppp/format.hpp>
 #include<cppp/rtl.hpp>
 #include<sgl/sgl.hpp>
 #include<print>
