@@ -194,7 +194,6 @@ int main(){
     cf.font().init_width_pt(i<<6uz,191,191);
     sgl::SimpleBlitter b;
     sgl::SDFRenderer sb;
-    sgl::SDFRenderer sr;
     bool sdf = true;
     SDL_GL_SetSwapInterval(-1);
     cppp::str buf;
