@@ -179,7 +179,7 @@ int main(){
 
     constexpr std::uint32_t SW = 1200;
     constexpr std::uint32_t SH = 600;
-    sgl::Window win{u8"Hello, world!"s,SW,SH};
+    sgl::Window win{u8"Hello, world!"s,SW,SH,SDL_WINDOW_RESIZABLE|SDL_WINDOW_HIGH_PIXEL_DENSITY};
     sgl::CoordinateMap cm{SW,SH};
     { // scope for all GL objects. Their dtors must run before we destroy everything with SDL_Quit().
     // gldbg();
@@ -204,10 +204,12 @@ int main(){
         for(const auto& e : sgl::events()){
             switch(e.type){
                 case SDL_EVENT_QUIT: goto cleanup;
-                case SDL_EVENT_WINDOW_RESIZED:
+                case SDL_EVENT_WINDOW_RESIZED: {
                     glViewport(0,0,e.window.data1,e.window.data2);
-                    cm.update(static_cast<std::uint32_t>(e.window.data1),static_cast<std::uint32_t>(e.window.data2));
+                    float scaling = SDL_GetWindowDisplayScale(win.native_handle());
+                    cm.update(static_cast<float>(e.window.data1)/scaling,static_cast<float>(e.window.data2)/scaling);
                     break;
+                }
                 case SDL_EVENT_KEY_DOWN:
                     switch(e.key.key){
                         case SDLK_UP:
