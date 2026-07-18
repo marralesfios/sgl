@@ -249,8 +249,8 @@ int main(){
             }
         }
         glClear(GL_COLOR_BUFFER_BIT);
-        cppp::fvec2 tpos{20.0f,static_cast<float>(cm.win_size().y()>>1)};
-        cppp::fvec2 bpos{20.0f,static_cast<float>(cm.win_size().y()*3>>2)};
+        cppp::fvec2 tpos{20.0f,cm.win_size().y()*0.5f};
+        cppp::fvec2 bpos{20.0f,cm.win_size().y()*0.75f};
         if(sdf){
             draw_text(cppp::format<u8"{} {}pt x {:.2f} (SDF)"_ts>(fn,i,sca),cm.cvt_abs(tpos),cm.pixel_size()*sca,cf,shp,sb);
             draw_text(buf,cm.cvt_abs(bpos),cm.pixel_size()*sca,cf,shp,sb);

@@ -396,20 +396,18 @@ namespace sgl{
     #undef SGL_BITFIELD_ENUM
     
     class CoordinateMap{
-        cppp::uvec2 _win_size;
+        cppp::fvec2 _win_size;
         cppp::fvec2 conversion_factor;
         // space isn't a concern because we won't have tons of instances, so we aim to speed up queries by storing the y abs too
         float pixel_size_y;
         constexpr static cppp::fvec2 NDC_ORIGIN{-1.0f,1.0f};
         public:
-            constexpr CoordinateMap(std::uint32_t w,std::uint32_t h)
-            : _win_size(w,h), conversion_factor(2.0f/static_cast<float>(w),-2.0f/static_cast<float>(h)),
-              pixel_size_y(2.0f/static_cast<float>(h)){}
-            constexpr void update(std::uint32_t w,std::uint32_t h){
-                conversion_factor.x() = 2.0f/static_cast<float>(_win_size.x() = w);
-                conversion_factor.y() = -(pixel_size_y = 2.0f/static_cast<float>(_win_size.y() = h));
+            constexpr CoordinateMap(float w,float h) : _win_size(w,h), conversion_factor(2.0f/w,-2.0f/h), pixel_size_y(2.0f/h){}
+            constexpr void update(float w,float h){
+                conversion_factor.x() = 2.0f/(_win_size.x() = w);
+                conversion_factor.y() = -(pixel_size_y = 2.0f/(_win_size.y() = h));
             }
-            constexpr cppp::uvec2 win_size() const{
+            constexpr cppp::fvec2 win_size() const{
                 return _win_size;
             }
             constexpr cppp::fvec2 cvt_rel(cppp::fvec2 pos) const{
@@ -421,10 +419,10 @@ namespace sgl{
             constexpr cppp::fvec2 pixel_size() const{
                 return {conversion_factor.x(),pixel_size_y};
             }
-            constexpr cppp::ivec2 from_ndc_rel(cppp::fvec2 ndc) const{
-                return cppp::ivec2(ndc/conversion_factor);
+            constexpr cppp::fvec2 from_ndc_rel(cppp::fvec2 ndc) const{
+                return ndc/conversion_factor;
             }
-            constexpr cppp::ivec2 from_ndc_abs(cppp::fvec2 ndc) const{
+            constexpr cppp::fvec2 from_ndc_abs(cppp::fvec2 ndc) const{
                 return from_ndc_rel(ndc-NDC_ORIGIN);
             }
     };
