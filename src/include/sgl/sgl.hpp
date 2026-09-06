@@ -3,5 +3,3 @@
 #include"window.hpp"
 #include"events.hpp"
 #include"gl.hpp"
-#include"draw/blit.hpp"
-#include"draw/sdf.hpp"

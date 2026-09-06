@@ -1,9 +1,11 @@
 #include<cppp/template-string.hpp>
+#include<sgl/sgl.hpp>
+#include<sgl/draw/rect.hpp>
+#include<sgl/draw/blit.hpp>
 #include<sgl/ext/freetype.hpp>
 #include<sgl/ext/stbi.hpp>
 #include<cppp/format.hpp>
 #include<cppp/rtl.hpp>
-#include<sgl/sgl.hpp>
 #include<print>
 using namespace std::literals;
 #define printattr(attr) glGetIntegerv(attr,&data); if(data<1048576) std::println(#attr " = {}"sv,data); else std::println(#attr " = {:.1f}Mi"sv,static_cast<float>(data)/1048576.0f)
@@ -194,6 +196,7 @@ int main(){
     cf.font().init_width_pt(i<<6uz,191,191);
     sgl::SimpleBlitter b;
     sgl::SDFRenderer sb;
+    sgl::MonochromeRectDrawer mrd;
     bool sdf = true;
     SDL_GL_SetSwapInterval(-1);
     cppp::str buf;
@@ -251,6 +254,7 @@ int main(){
             }
         }
         glClear(GL_COLOR_BUFFER_BIT);
+        mrd.rect(cm.cvt_abs({10.0f,10.0f}),cm.cvt_rel({10.0f,20.0f}),{1.0f,1.0f,1.0f,0.5f});
         cppp::fvec2 tpos{20.0f,cm.win_size().y()*0.5f};
         cppp::fvec2 bpos{20.0f,cm.win_size().y()*0.75f};
         if(sdf){

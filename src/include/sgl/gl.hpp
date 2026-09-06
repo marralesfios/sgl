@@ -92,6 +92,7 @@ namespace sgl{
         friend class VAO;
         public:
             enum class StaticConfig : std::uint32_t{
+                NONE=0,
                 MMAP_R=GL_MAP_READ_BIT,MMAP_W=GL_MAP_WRITE_BIT,MMAP_USE=GL_MAP_PERSISTENT_BIT,UPLOAD=GL_DYNAMIC_STORAGE_BIT,MMAP_SYNC=GL_MAP_COHERENT_BIT,CPUBUF=GL_CLIENT_STORAGE_BIT
             };
             GLBuffer(){

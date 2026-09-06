@@ -1,7 +1,7 @@
 #include<sgl/draw/line.hpp>
 namespace sgl{
     using namespace std::literals;
-    LineDrawer::LineDrawer() : prog(u8"#version 460 core\nlayout(location=0)in vec2 p;layout(location=1)in vec3 c;layout(location=0)out vec3 C;void main(){C=c;gl_Position=vec4(p,0.0,1.0);}"sv,u8"#version 460 core\nlayout(location=0)in vec3 c;out vec4 C;void main(){C=vec4(c,1.);}"sv){
+    LineDrawer::LineDrawer() : prog(u8"#version 460 core\nlayout(location=0)in vec2 p;layout(location=1)in vec3 c;layout(location=0)out vec3 C;void main(){C=c;gl_Position=vec4(p,0.,1.);}"sv,u8"#version 460 core\nlayout(location=0)in vec3 c;out vec4 C;void main(){C=vec4(c,1.);}"sv){
         vbo.allocate_static(10*sizeof(float),GLBuffer::StaticConfig::UPLOAD);
         vao.add_buffer(vbo,0,0,5*sizeof(float));
         vao.set_attr<float>(0,0,2,0,false);
