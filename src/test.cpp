@@ -160,7 +160,7 @@ void draw_text(cppp::sv sv,cppp::fvec2 pos,cppp::fvec2 npp,sgl::CachedFont& gc,s
     for(auto it = sh.shape(sv,gc.font());it;++it){
         auto& gl = gc.query(it.glyph());
         if(gl.bitmap()){
-            sb.draw(gl.bitmap(),pos+cppp::fvec2(it.bearing()+gl.bearing())*npp,npp,{1.0f});
+            sb.draw(gl.bitmap(),pos+cppp::fvec2(it.bearing()+gl.bearing())*npp,npp,cppp::fvec4{1.0f});
         }
         pos += npp*cppp::fvec2(it.advance())/64.0f;
     }

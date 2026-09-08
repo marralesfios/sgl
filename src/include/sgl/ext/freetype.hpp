@@ -198,7 +198,6 @@ namespace sgl{
             Shaper() : resource_handle(hb_buffer_create()){}
             iterator shape(cppp::sv str,const Font& f);
     };
-    
     class SDFTextRenderer{
         mutable Shaper sh;
         SDFRenderer sr;
