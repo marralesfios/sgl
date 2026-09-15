@@ -15,6 +15,9 @@ namespace sgl{
         SDL_GLContext ctx;
         public:
             Window(const cppp::str& title,std::uint32_t w,std::uint32_t h,std::uint64_t flags=SDL_WINDOW_RESIZABLE);
+            float display_scale() const{
+                return SDL_GetWindowDisplayScale(p.get());
+            }
             SDL_Window* native_handle(){
                 return p.get();
             }

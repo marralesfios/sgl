@@ -182,7 +182,7 @@ int main(){
     constexpr std::uint32_t SW = 1200;
     constexpr std::uint32_t SH = 600;
     sgl::Window win{u8"Hello, world!"s,SW,SH,SDL_WINDOW_RESIZABLE|SDL_WINDOW_HIGH_PIXEL_DENSITY};
-    sgl::CoordinateMap cm{SW,SH};
+    sgl::CoordinateMap cm{cppp::fvec2(cppp::uvec2(SW,SH))/win.display_scale()};
     { // scope for all GL objects. Their dtors must run before we destroy everything with SDL_Quit().
     // gldbg();
     glClearColor(0.0f,0.0f,0.0f,0.0f);
@@ -207,12 +207,12 @@ int main(){
         for(const auto& e : sgl::events()){
             switch(e.type){
                 case SDL_EVENT_QUIT: goto cleanup;
-                case SDL_EVENT_WINDOW_RESIZED: {
+                case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
                     glViewport(0,0,e.window.data1,e.window.data2);
-                    float scaling = SDL_GetWindowDisplayScale(win.native_handle());
-                    cm.update(static_cast<float>(e.window.data1)/scaling,static_cast<float>(e.window.data2)/scaling);
                     break;
-                }
+                case SDL_EVENT_WINDOW_RESIZED:
+                    cm.update(cppp::fvec2(cppp::vec2(e.window.data1,e.window.data2))/win.display_scale());
+                    break;
                 case SDL_EVENT_KEY_DOWN:
                     switch(e.key.key){
                         case SDLK_UP:

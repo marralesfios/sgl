@@ -403,10 +403,12 @@ namespace sgl{
         float pixel_size_y;
         constexpr static cppp::fvec2 NDC_ORIGIN{-1.0f,1.0f};
         public:
-            constexpr CoordinateMap(float w,float h) : _win_size(w,h), conversion_factor(2.0f/w,-2.0f/h), pixel_size_y(2.0f/h){}
-            constexpr void update(float w,float h){
-                conversion_factor.x() = 2.0f/(_win_size.x() = w);
-                conversion_factor.y() = -(pixel_size_y = 2.0f/(_win_size.y() = h));
+            constexpr CoordinateMap() = default;
+            constexpr CoordinateMap(cppp::fvec2 ws) : _win_size(ws), conversion_factor(2.0f/ws.x(),-2.0f/ws.y()), pixel_size_y(2.0f/ws.y()){}
+            constexpr void update(cppp::fvec2 ws){
+                _win_size = ws;
+                conversion_factor.x() = 2.0f/ws.x();
+                conversion_factor.y() = -(pixel_size_y = 2.0f/ws.y());
             }
             constexpr cppp::fvec2 win_size() const{
                 return _win_size;
