@@ -3,7 +3,7 @@
 namespace sgl{
     using namespace std::literals;
     SDFRenderer::SDFRenderer() : p(u8"#version 460 core\nlayout(location=0)in vec2 p;layout(location=1)in vec2 t;layout(location=0)out vec2 T;void main(){T=t;gl_Position=vec4(p,0.,1.);}"sv,u8"#version 460 core\nout vec4 C;layout(location=0)in vec2 t;layout(location=0)uniform sampler2D i;layout(location=1)uniform vec4 c;void main(){float v=texture(i,t).r,E=fwidth(v)*.55;C=vec4(c.xyz,c.w*smoothstep(.5-E,.5+E,v));}"sv){
-        create_buffer_2_2_4(vao,vbo);
+        detail::create_buffer_2_2_4(vao,vbo);
     }
     void SDFRenderer::draw_stretched(const Texture<TextureType::TWO_D>& sdf,cppp::fvec2 pos,cppp::fvec2 size,cppp::fvec4 color) const{
         p.set_uniform(1,color);
