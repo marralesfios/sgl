@@ -7,6 +7,6 @@ namespace sgl{
         Program prog;
         public:
             LineDrawer();
-            void line(cppp::fvec2 start,cppp::fvec3 startc,cppp::fvec2 end,cppp::fvec3 endc) const;
+            void line(cppp::fvec2 start,cppp::fvec4 startc,cppp::fvec2 end,cppp::fvec4 endc) const;
     };
 }
