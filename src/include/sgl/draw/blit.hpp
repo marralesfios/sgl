@@ -23,6 +23,12 @@ namespace sgl{
     class ProgramBlitter : public detail::BlitterBase{
         Program p;
         public:
+            Program& program(){
+                return p;
+            }
+            const Program& program() const{
+                return p;
+            }
             ProgramBlitter(cppp::sv v,cppp::sv f);
             void blit_abs(const Texture<TextureType::TWO_D>& tex,cppp::fvec2 pos,cppp::fvec2 size) const;
             using BlitterBase::blit_rel;
