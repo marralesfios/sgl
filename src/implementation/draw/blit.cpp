@@ -12,10 +12,10 @@ namespace sgl{
         float t = pos.y();
         float b = t - size.y();
         std::array vertices{
-            r,b,1.0f,1.0f,
-            r,t,1.0f,0.0f,
-            l,b,0.0f,1.0f,
-            l,t,0.0f,0.0f
+            r,b,1.0f,0.0f,
+            r,t,1.0f,1.0f,
+            l,b,0.0f,0.0f,
+            l,t,0.0f,1.0f
         };
         vbo.upload(vertices.data(),vertices.size()*sizeof(float));
         vao.use();

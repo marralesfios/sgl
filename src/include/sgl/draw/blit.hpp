@@ -25,11 +25,11 @@ namespace sgl{
         public:
             ProgramBlitter(cppp::sv v,cppp::sv f);
             void blit_abs(const Texture<TextureType::TWO_D>& tex,cppp::fvec2 pos,cppp::fvec2 size) const;
+            using BlitterBase::blit_rel;
     };
     class SimpleBlitter : public ProgramBlitter{
         Program p;
         public:
             SimpleBlitter();
-            using BlitterBase::blit_rel;
     };
 }
